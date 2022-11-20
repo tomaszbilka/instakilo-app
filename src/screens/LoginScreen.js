@@ -41,8 +41,9 @@ const LoginScreen = () => {
         throw new Error(response.error)
       }
       const token = response.data.session.access_token
+      const userId = response.data.user.id
       if (token) {
-        login(token)
+        login(token, userId)
       }
     } catch (err) {
       setIsLoading(false)
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   error: {
-    marginTop: theme.spacings.md,
+    marginTop: theme.spacings.lg,
   },
 })
 

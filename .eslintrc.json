@@ -17,6 +17,7 @@
     "react/jsx-key": 1,
     "react/jsx-no-undef": 1,
     "react/prop-types": 0,
-    "semi": [1, "never"]
+    "semi": [1, "never"],
+    "react/no-unstable-nested-components": 0
   }
 }

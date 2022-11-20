@@ -31,3 +31,25 @@ export const signInWithPassword = async (email, password) => {
   })
   return response
 }
+
+export const getUser = async id => {
+  const user = await client.from('users').select().eq('uuid', id).single()
+  return user
+}
+
+export const getAllPosts = async () => {
+  const response = await client.from('posts').select('*').is('archived_at', null)
+  return response
+}
+
+export const createPost = async (description, imgName) => {
+  const response = await client
+    .from('posts')
+    .insert({
+      description: description,
+      image_url: imgName,
+    })
+    .limit(1)
+    .single()
+  return response
+}

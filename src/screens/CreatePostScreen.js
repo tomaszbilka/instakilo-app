@@ -1,14 +1,14 @@
 import React from 'react'
-import { Button, Text, View } from 'react-native'
-import { useAuth } from '../utilities/context'
+import { Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const CreatePostScreen = () => {
-  const { logout } = useAuth()
   return (
-    <View>
-      <Text>CreatePostScreen</Text>
-      <Button title="logout" onPress={() => logout()} />
-    </View>
+    <SafeAreaView>
+      <View>
+        <Text>CreatePostScreen</Text>
+      </View>
+    </SafeAreaView>
   )
 }
 

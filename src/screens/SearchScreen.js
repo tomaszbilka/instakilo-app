@@ -1,13 +1,14 @@
 import React from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const SearchScreen = ({ navigation }) => {
-  const { navigate } = navigation
   return (
-    <View>
-      <Text>SearchScreen</Text>
-      <Button title="Login" onPress={() => navigate('MainTabs')} />
-    </View>
+    <SafeAreaView>
+      <View>
+        <Text>SearchScreen</Text>
+      </View>
+    </SafeAreaView>
   )
 }
 
