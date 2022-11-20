@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createContext, useContext, useState } from 'react'
+
+import { getItem, removeItem, storeItem } from './storage'
 
 export const AuthContext = createContext({
   login() {},
@@ -10,8 +12,24 @@ export const AuthContext = createContext({
 export const AuthContextProvider = ({ children }) => {
   const [isSignedIn, setIsSignedIn] = useState(false)
 
-  const login = () => setIsSignedIn(true)
-  const logout = () => setIsSignedIn(false)
+  useEffect(() => {
+    const isUserLogged = async () => {
+      const token = await getItem('token')
+      if (token) {
+        setIsSignedIn(true)
+      }
+    }
+    isUserLogged()
+  }, [])
+
+  const login = token => {
+    setIsSignedIn(true)
+    storeItem('token', token)
+  }
+  const logout = () => {
+    setIsSignedIn(false)
+    removeItem('token')
+  }
 
   return <AuthContext.Provider value={{ isSignedIn, login, logout }}>{children}</AuthContext.Provider>
 }

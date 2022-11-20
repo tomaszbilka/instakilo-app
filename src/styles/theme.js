@@ -1,9 +1,10 @@
 const theme = {
   colors: {
-    primary: '#BF785E',
-    primary200: '#A65B4B',
-    secondary: '#6393A6',
-    black: '#1D2341',
+    primary: '#0C4160',
+    primary200: '#738FA7',
+    secondary: '#C3CEDA',
+    black: '#071330',
+    error: '#E42256',
   },
   fontSizes: {
     body: 16,
@@ -16,13 +17,18 @@ const theme = {
     h5: 24,
   },
   spacings: {
-    sm: 8,
+    xs: 8,
+    sm: 12,
     base: 16,
-    md: 24,
-    lg: 32,
+    md: 20,
+    lg: 24,
+    xl: 32,
   },
   radiuses: {
+    lg: 12,
+    md: 8,
     base: 6,
+    sm: 4,
   },
 }
 

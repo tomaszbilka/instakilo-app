@@ -1,16 +1,17 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
 
 import { useAuth } from '../utilities/context'
-import HomeScreen from '../screens/HomeScreen'
-import ProfileScreen from '../screens/ProfileScreen'
-import LoginScreen from '../screens/LoginScreen'
-import RegisterScreen from '../screens/RegisterScreen'
-import WelcomeScreen from '../screens/WelcomeScreen'
 import CreatePostScreen from '../screens/CreatePostScreen'
+import HomeScreen from '../screens/HomeScreen'
+import LoginScreen from '../screens/LoginScreen'
+import ProfileScreen from '../screens/ProfileScreen'
+import RegisterScreen from '../screens/RegisterScreen'
 import SearchScreen from '../screens/SearchScreen'
+import theme from '../styles/theme'
+import WelcomeScreen from '../screens/WelcomeScreen'
 
 const Stack = createNativeStackNavigator()
 const Tabs = createBottomTabNavigator()
@@ -34,9 +35,18 @@ const Navigation = () => {
           <Stack.Screen name="MainTabs" component={MainTabs} />
         ) : (
           <>
-            <Stack.Screen name="Welcome" component={WelcomeScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+            <Stack.Screen
+              name="Register"
+              component={RegisterScreen}
+              options={{
+                title: 'Sign up form',
+                headerStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
+              }}
+            />
           </>
         )}
       </Stack.Navigator>
