@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
+import { useNavigation } from '@react-navigation/native'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { registerScreenValidation as validation } from '../utilities/validations'
 import { signUp } from '../api/api'
-import { useAuth } from '../utilities/context'
 import Loader from '../components/Loader'
 import MyButton from '../components/MyButton'
 import MyError from '../components/MyError'
@@ -15,7 +15,7 @@ import theme from '../styles/theme'
 const RegisterScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
-  const { login } = useAuth()
+  const { navigate } = useNavigation()
 
   const {
     control,
@@ -41,7 +41,7 @@ const RegisterScreen = ({ navigation }) => {
       }
       const token = response.data.session.access_token
       if (token) {
-        login(token)
+        navigate('Login')
       }
     } catch (err) {
       setIsLoading(false)
