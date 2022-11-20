@@ -5,7 +5,7 @@ export const getItem = async key => {
     const storeData = await AsyncStorage.getItem(key)
 
     if (storeData) {
-      return storeData
+      return JSON.parse(storeData)
     }
 
     return null

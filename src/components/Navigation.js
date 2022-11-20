@@ -89,6 +89,7 @@ const Navigation = () => {
                 headerStyle: {
                   backgroundColor: theme.colors.primary,
                 },
+                headerTintColor: theme.colors.secondary,
               }}
             />
           </>
