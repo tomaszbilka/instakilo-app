@@ -10,11 +10,12 @@ const HomeScreen = () => {
     queryKey: ['posts'],
     queryFn: getAllPosts,
   })
-
+  console.log(data)
   return (
     <SafeAreaView>
       <View>
         <Text>HomeScreen</Text>
+        {data?.data.length === 0 && <Text>No posts yet...</Text>}
       </View>
     </SafeAreaView>
   )

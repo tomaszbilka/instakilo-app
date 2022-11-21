@@ -3,7 +3,7 @@ import { StyleSheet, TextInput } from 'react-native'
 
 import theme from '../styles/theme'
 
-const MyTextInput = ({ style, value, onChange, placeholder, onBlur, secureTextEntry }) => {
+const MyTextInput = ({ style, value, onChange, placeholder, onBlur, secureTextEntry, multiline, numberOfLines }) => {
   return (
     <TextInput
       autoCapitalize={false}
@@ -17,6 +17,8 @@ const MyTextInput = ({ style, value, onChange, placeholder, onBlur, secureTextEn
       secureTextEntry={secureTextEntry}
       style={StyleSheet.flatten([style, styles.input])}
       value={value}
+      multiline={multiline}
+      numberOfLines={numberOfLines}
     />
   )
 }
