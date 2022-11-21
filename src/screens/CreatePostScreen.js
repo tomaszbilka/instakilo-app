@@ -22,7 +22,7 @@ import { createPost } from '../api/api'
 import Loader from '../components/Loader'
 
 const imageUrl =
-  'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80'
+  'https://images.unsplash.com/photo-1661961110218-35af7210f803?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
 
 const CreatePostScreen = () => {
   const [isLoading, setIsLoading] = useState(false)

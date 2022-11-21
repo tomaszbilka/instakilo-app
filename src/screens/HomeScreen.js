@@ -10,7 +10,7 @@ const HomeScreen = () => {
     queryKey: ['posts'],
     queryFn: getAllPosts,
   })
-  console.log(data)
+
   return (
     <SafeAreaView>
       <View>
