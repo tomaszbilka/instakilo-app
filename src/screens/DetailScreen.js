@@ -11,6 +11,7 @@ import theme from '../styles/theme'
 import MyTextInput from '../components/MyTextInput'
 import MyButton from '../components/MyButton'
 import Comment from '../components/Comment'
+import Likes from '../components/Likes'
 
 const DetailScreen = ({ route }) => {
   const [comment, setComment] = useState('')
@@ -57,7 +58,7 @@ const DetailScreen = ({ route }) => {
     )
   }
   const { data: post } = data
-  console.log(post)
+
   const addComment = async () => {
     if (comment.length === 0) {
       return
@@ -73,7 +74,7 @@ const DetailScreen = ({ route }) => {
     setComment('')
     refetch()
   }
-  console.log(id)
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -86,6 +87,7 @@ const DetailScreen = ({ route }) => {
                   uri: post.image_url,
                 }}
               />
+              <Likes id={id} />
             </View>
             <View style={styles.authorWrap}>
               <View style={styles.author}>

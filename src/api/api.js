@@ -81,8 +81,23 @@ export const deleteUserComment = async id => {
   return response
 }
 
-//?????
 export const updateUserName = async ({ name, id }) => {
   const response = await client.from('users').update({ first_name: name }).eq('uuid', id)
+  return response
+}
+
+export const likePost = async id => {
+  const response = await client
+    .from('likes')
+    .insert({
+      post_id: id,
+    })
+    .limit(1)
+    .single()
+  return response
+}
+
+export const getAllPostLikes = async id => {
+  const response = client.from('likes').select('*', { count: 'exact' }).eq('post_id', id)
   return response
 }
