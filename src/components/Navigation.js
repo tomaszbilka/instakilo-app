@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { FontAwesome } from '@expo/vector-icons'
 import { MaterialIcons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 
 import { useAuth } from '../utilities/context'
 import CreatePostScreen from '../screens/CreatePostScreen'
@@ -15,13 +16,39 @@ import RegisterScreen from '../screens/RegisterScreen'
 import SearchScreen from '../screens/SearchScreen'
 import theme from '../styles/theme'
 import WelcomeScreen from '../screens/WelcomeScreen'
+import DetailScreen from '../screens/DetailScreen'
 
 const Stack = createNativeStackNavigator()
 const Tabs = createBottomTabNavigator()
 
+const HomeStack = () => (
+  <Stack.Navigator initialRouteName={'Home'}>
+    <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+    <Stack.Screen
+      name="Detail"
+      component={DetailScreen}
+      options={({ navigation }) => ({
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
+        headerTintColor: theme.colors.secondary,
+        headerLeft: () => (
+          <Ionicons
+            name="return-up-back"
+            size={32}
+            color={theme.colors.secondary}
+            onPress={() => navigation.goBack()}
+            style={{ marginRight: 10 }}
+          />
+        ),
+      })}
+    />
+  </Stack.Navigator>
+)
+
 const MainTabs = () => (
   <Tabs.Navigator
-    initialRouteName="Home"
+    initialRouteName="HomeStack"
     screenOptions={{
       tabBarStyle: {
         backgroundColor: theme.colors.primary,
@@ -33,8 +60,8 @@ const MainTabs = () => (
     }}
   >
     <Tabs.Screen
-      name="Home"
-      component={HomeScreen}
+      name="HomeStack"
+      component={HomeStack}
       options={{
         headerShown: false,
         tabBarIcon: ({ color }) => <MaterialIcons name="dashboard" size={32} color={color} />,

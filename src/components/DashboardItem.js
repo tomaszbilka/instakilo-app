@@ -1,10 +1,9 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-
 import theme from '../styles/theme'
 
-const ProfileList = ({ item }) => {
+const DashboardItem = ({ item }) => {
   const { navigate } = useNavigation()
 
   return (
@@ -17,9 +16,12 @@ const ProfileList = ({ item }) => {
           }}
         />
       </TouchableOpacity>
-
       <View style={styles.text}>
         <Text>{item.description}</Text>
+      </View>
+      <View style={styles.text}>
+        <Text>Likes </Text>
+        <Text>2</Text>
       </View>
     </View>
   )
@@ -37,7 +39,8 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: theme.spacings.sm,
+    flexDirection: 'row',
   },
 })
 
-export default ProfileList
+export default DashboardItem

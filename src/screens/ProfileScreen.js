@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, ScrollView, TouchableOpacity, FlatList } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
 import { Feather } from '@expo/vector-icons'
@@ -18,7 +18,7 @@ const ProfileScreen = () => {
   const [isList, setIsList] = useState(false)
   const { userId } = useAuth()
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['user'],
     queryFn: () => getUser(userId),
   })
@@ -64,7 +64,7 @@ const ProfileScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.info}>
-        <UserDetails user={data} />
+        <UserDetails user={data} refetch={refetch} />
       </View>
       <View style={styles.posts}>
         {!isList && (

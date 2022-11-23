@@ -53,3 +53,36 @@ export const createPost = async (description, imgName) => {
     .single()
   return response
 }
+
+export const getPost = async id => {
+  const response = await client
+    .from('posts')
+    .select('id, created_at, description, image_url, comments ( body, creator_uuid, id )')
+    .eq('id', id)
+    .is('archived_at', null)
+    .single()
+  return response
+}
+
+export const createComment = async (body, post_id) => {
+  const response = await client
+    .from('comments')
+    .insert({
+      body: body,
+      post_id: post_id,
+    })
+    .limit(1)
+    .single()
+  return response
+}
+
+export const deleteUserComment = async id => {
+  const response = await client.from('comments').delete().eq('id', id)
+  return response
+}
+
+//?????
+export const updateUserName = async ({ name, id }) => {
+  const response = await client.from('users').update({ first_name: name }).eq('uuid', id)
+  return response
+}
