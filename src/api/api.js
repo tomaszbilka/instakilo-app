@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { decode } from 'base64-arraybuffer'
 import 'react-native-url-polyfill/auto'
 
 const url = 'https://jvneoinifrjqltrrxesb.supabase.co'
@@ -109,5 +110,26 @@ export const getAllPostLikes = async id => {
 
 export const ifPostLiked = async ({ id, user_uuid }) => {
   const response = await client.from('likes').select('*').eq('post_id', id).eq('creator_uuid', user_uuid)
+  return response
+}
+
+export const uploadFile = async ({ imageName, imageFile }) => {
+  await client.storage.from('images').upload(imageName, decode(imageFile.base64), {
+    cacheControl: '3600',
+    upsert: false,
+  })
+
+  const imageUrl = await client.storage.from('images').getPublicUrl(imageName)
+
+  return imageUrl.data.publicUrl
+}
+
+export const deletePost = async id => {
+  const response = await client
+    .from('posts')
+    .update({
+      archived_at: new Date().toISOString(),
+    })
+    .eq('id', id)
   return response
 }

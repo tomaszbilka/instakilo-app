@@ -42,7 +42,7 @@ const UserDetails = ({ user, refetch }) => {
           value={userName}
           onChangeText={newName => setUserName(newName)}
           onBlur={sendUserName}
-          style={styles.text}
+          style={styles.inputText}
         />
       )}
     </View>
@@ -59,6 +59,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: theme.fontSizes.bodyLarge,
     marginTop: 20,
+  },
+  inputText: {
+    textAlign: 'center',
+    fontSize: theme.fontSizes.bodyLarge,
+    marginTop: 20,
+    backgroundColor: '#fff',
   },
 })
 export default UserDetails

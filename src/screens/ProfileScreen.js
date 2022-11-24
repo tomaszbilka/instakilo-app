@@ -63,9 +63,14 @@ const ProfileScreen = () => {
           <Foundation name="list" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      <View style={styles.info}>
-        <UserDetails user={data} refetch={refetch} />
+      <View>
+        <ScrollView>
+          <View style={styles.info}>
+            <UserDetails user={data} refetch={refetch} />
+          </View>
+        </ScrollView>
       </View>
+
       <View style={styles.posts}>
         {!isList && (
           <ScrollView style={styles.img} contentContainerStyle={styles.listWrap}>

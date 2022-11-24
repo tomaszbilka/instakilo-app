@@ -13,20 +13,22 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
+import * as ImagePicker from 'expo-image-picker'
 
 import theme from '../styles/theme'
 import { addPostValidation as validation } from '../utilities/validations'
 import MyTextInput from '../components/MyTextInput'
 import MyError from '../components/MyError'
 import MyButton from '../components/MyButton'
-import { createPost } from '../api/api'
+import { createPost, uploadFile } from '../api/api'
 import Loader from '../components/Loader'
 
 const imageUrl =
-  'https://images.unsplash.com/photo-1669147528483-5b5b4493cbe3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png'
 
 const CreatePostScreen = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const [image, setImage] = useState({ uri: imageUrl })
   const [error, setError] = useState(false)
 
   const { navigate } = useNavigation()
@@ -43,11 +45,28 @@ const CreatePostScreen = () => {
     },
   })
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [3, 3],
+      quality: 1,
+      base64: true,
+    })
+
+    if (!result.canceled) {
+      setImage(result.assets[0])
+    }
+  }
+
   const onSubmit = async values => {
     setIsLoading(true)
     setError(null)
+
     try {
-      const resposne = await createPost(values.description, imageUrl)
+      const imagePath = await uploadFile({ imageName: values.title, imageFile: image })
+
+      const resposne = await createPost(values.description, imagePath)
       if (resposne.error) {
         throw new Error('Sth went wrong...!!')
       }
@@ -56,6 +75,7 @@ const CreatePostScreen = () => {
       navigate('Home')
     } catch (err) {
       setIsLoading(false)
+      console.log(err)
       setError(err.message || 'Something went wrong!')
     }
   }
@@ -76,7 +96,7 @@ const CreatePostScreen = () => {
                 <Image
                   style={styles.image}
                   source={{
-                    uri: imageUrl,
+                    uri: image.uri,
                   }}
                 />
               </View>
@@ -113,7 +133,7 @@ const CreatePostScreen = () => {
             </ScrollView>
             <View style={styles.buttonsContainer}>
               <View style={styles.buttons}>
-                <MyButton title="Camera" onPress={() => console.log('open camera')} />
+                <MyButton title="Camera" onPress={pickImage} />
               </View>
               <View style={styles.buttons}>
                 <MyButton title="Add" onPress={handleSubmit(onSubmit)} />

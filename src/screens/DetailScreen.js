@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Image, FlatList, Text } from 'react-native'
+import { View, StyleSheet, Image, FlatList, Text, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useQuery } from '@tanstack/react-query'
 import get from 'lodash/get'
+import { AntDesign } from '@expo/vector-icons'
 
-import { getPost, createComment, getUser } from '../api/api'
+import { getPost, createComment, getUser, deletePost } from '../api/api'
 import MyError from '../components/MyError'
 import Loader from '../components/Loader'
 import theme from '../styles/theme'
@@ -15,6 +16,7 @@ import Comment from '../components/Comment'
 import Likes from '../components/Likes'
 
 const DetailScreen = ({ route }) => {
+  const { navigate } = useNavigation()
   const [comment, setComment] = useState('')
 
   const {
@@ -42,6 +44,12 @@ const DetailScreen = ({ route }) => {
     refetch()
     userRefetch()
   })
+
+  const deletePostHandler = async () => {
+    const response = await deletePost(id)
+    console.log(response)
+    navigate('Home')
+  }
 
   if (isLoading || loading) {
     return (
@@ -115,6 +123,9 @@ const DetailScreen = ({ route }) => {
         keyExtractor={item => item.id}
         renderItem={({ item }) => <Comment item={item} refetch={refetch} />}
       />
+      <TouchableOpacity style={styles.remove} onPress={deletePostHandler}>
+        <AntDesign name="delete" size={30} color="red" />
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }
@@ -150,6 +161,9 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
+  },
+  remove: {
+    padding: theme.spacings.base,
   },
 })
 
