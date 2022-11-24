@@ -97,7 +97,17 @@ export const likePost = async id => {
   return response
 }
 
+export const unlikePost = async id => {
+  const response = await client.from('likes').delete().eq('id', id)
+  return response
+}
+
 export const getAllPostLikes = async id => {
   const response = client.from('likes').select('*', { count: 'exact' }).eq('post_id', id)
+  return response
+}
+
+export const ifPostLiked = async ({ id, user_uuid }) => {
+  const response = await client.from('likes').select('*').eq('post_id', id).eq('creator_uuid', user_uuid)
   return response
 }

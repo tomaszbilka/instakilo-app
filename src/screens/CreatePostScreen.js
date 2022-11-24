@@ -9,6 +9,7 @@ import {
   Platform,
   Keyboard,
   Image,
+  ScrollView,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
@@ -22,7 +23,7 @@ import { createPost } from '../api/api'
 import Loader from '../components/Loader'
 
 const imageUrl =
-  'https://images.unsplash.com/photo-1661961110218-35af7210f803?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+  'https://images.unsplash.com/photo-1669147528483-5b5b4493cbe3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
 
 const CreatePostScreen = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -70,44 +71,46 @@ const CreatePostScreen = () => {
           <Loader />
         ) : (
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-            <View style={styles.photo}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: imageUrl,
-                }}
-              />
-            </View>
-            <View style={styles.form}>
-              <View>
-                <Controller
-                  name="title"
-                  control={control}
-                  render={({ field: { onBlur, value, onChange } }) => (
-                    <MyTextInput placeholder="title" onBlur={onBlur} onChange={onChange} value={value} />
-                  )}
+            <ScrollView>
+              <View style={styles.photo}>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: imageUrl,
+                  }}
                 />
-                {errors.title && <MyError message={errors.title.message} />}
               </View>
+              <View style={styles.form}>
+                <View>
+                  <Controller
+                    name="title"
+                    control={control}
+                    render={({ field: { onBlur, value, onChange } }) => (
+                      <MyTextInput placeholder="title" onBlur={onBlur} onChange={onChange} value={value} />
+                    )}
+                  />
+                  {errors.title && <MyError message={errors.title.message} />}
+                </View>
 
-              <View>
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({ field: { onBlur, value, onChange } }) => (
-                    <MyTextInput
-                      placeholder="description"
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      value={value}
-                      multiline={true}
-                      numberOfLines={3}
-                    />
-                  )}
-                />
-                {errors.description && <MyError message={errors.description.message} />}
+                <View>
+                  <Controller
+                    name="description"
+                    control={control}
+                    render={({ field: { onBlur, value, onChange } }) => (
+                      <MyTextInput
+                        placeholder="description"
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        value={value}
+                        multiline={true}
+                        numberOfLines={3}
+                      />
+                    )}
+                  />
+                  {errors.description && <MyError message={errors.description.message} />}
+                </View>
               </View>
-            </View>
+            </ScrollView>
             <View style={styles.buttonsContainer}>
               <View style={styles.buttons}>
                 <MyButton title="Camera" onPress={() => console.log('open camera')} />

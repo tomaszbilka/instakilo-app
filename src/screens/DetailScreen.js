@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Image, FlatList, ScrollView, Text } from 'react-native'
+import { View, StyleSheet, Image, FlatList, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useFocusEffect } from '@react-navigation/native'
 import { useQuery } from '@tanstack/react-query'
+import get from 'lodash/get'
 
 import { getPost, createComment, getUser } from '../api/api'
 import MyError from '../components/MyError'
@@ -25,7 +26,7 @@ const DetailScreen = ({ route }) => {
     queryFn: () => getPost(id),
   })
 
-  const userId = data?.data.comments[0].creator_uuid
+  const userId = get(data, 'data.comments[0].creator_uuid')
 
   const {
     data: userDetails,
