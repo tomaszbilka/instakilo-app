@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, FlatList } from 'react-native'
+import { Text, View, StyleSheet, FlatList, RefreshControl } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useFocusEffect } from '@react-navigation/native'
@@ -46,6 +46,7 @@ const HomeScreen = () => {
           data={data.data}
           keyExtractor={item => item.id}
           renderItem={({ item }) => <DashboardItem item={item} />}
+          refreshControl={<RefreshControl refreshing={false} onRefresh={false} />}
         />
       </View>
     </SafeAreaView>

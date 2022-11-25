@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: theme.fontSizes.bodyLarge,
+    fontSize: theme.fontSizes.h5,
+    color: theme.colors.primary,
     marginTop: 20,
   },
   inputText: {

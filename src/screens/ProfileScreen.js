@@ -57,10 +57,10 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       <View style={styles.buttons}>
         <TouchableOpacity onPress={() => setIsList(false)}>
-          <Feather name="grid" size={24} color="black" />
+          <Feather name="grid" size={32} color="black" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setIsList(true)}>
-          <Foundation name="list" size={24} color="black" />
+          <Foundation name="list" size={32} color="black" />
         </TouchableOpacity>
       </View>
       <View>
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   },
   posts: {
     flex: 2,
+    marginTop: theme.spacings.md,
   },
   img: {
     flex: 1,
