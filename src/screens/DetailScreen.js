@@ -28,7 +28,7 @@ const DetailScreen = ({ route }) => {
     queryFn: () => getPost(id),
   })
 
-  const userId = get(data, 'data.comments[0].creator_uuid')
+  const userId = get(data, 'data.creator_uuid')
 
   const {
     data: userDetails,
@@ -36,7 +36,7 @@ const DetailScreen = ({ route }) => {
     isError: error,
     refetch: userRefetch,
   } = useQuery({
-    queryKey: ['user'],
+    queryKey: ['post-user'],
     queryFn: () => getUser(userId),
   })
 
@@ -46,9 +46,12 @@ const DetailScreen = ({ route }) => {
   })
 
   const deletePostHandler = async () => {
-    const response = await deletePost(id)
-    console.log(response)
-    navigate('Home')
+    try {
+      await deletePost(id)
+      navigate('Home')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   if (isLoading || loading) {
@@ -100,7 +103,7 @@ const DetailScreen = ({ route }) => {
             </View>
             <View style={styles.authorWrap}>
               <View style={styles.author}>
-                <Text>Author: {userDetails.first_name || 'unknown'}</Text>
+                <Text>Author: {get(userDetails, 'data.first_name', 'unknown')}</Text>
               </View>
               <View style={styles.description}>
                 <Text>{post.description}</Text>

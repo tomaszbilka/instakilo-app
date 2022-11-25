@@ -14,19 +14,15 @@ const Likes = ({ id }) => {
   const [isLiked, setIsLiked] = useState()
   const { userId } = useAuth()
 
-  const { data, isLoading, isError, refetch } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [`likes-${id}`],
     queryFn: () => getAllPostLikes(id),
   })
 
   const likePostRequest = async () => {
     console.log('like')
-    if (isLiked) {
-      return
-    }
     try {
       const response = await likePost(id)
-      console.log(response)
       if (response.error) {
         throw new Error('Cant like post...')
       }
@@ -37,13 +33,9 @@ const Likes = ({ id }) => {
   }
 
   const unlikePostRequest = async () => {
-    console.log('gog')
-    if (!isLiked) {
-      return
-    }
+    console.log('unlike')
     try {
-      const response = await unlikePost(id)
-      console.log(response)
+      const response = await unlikePost(get(data, 'data[0].id'))
       if (response.error) {
         throw new Error('Cant unlike post...')
       }
@@ -93,6 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
     padding: 5,
     borderRadius: theme.radiuses.sm,
+    zIndex: 100,
   },
   text: {
     color: theme.colors.primary200,
@@ -105,7 +98,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: theme.colors.primary,
     padding: 5,
+    paddingRight: 30,
     borderRadius: theme.radiuses.sm,
+    zIndex: 100,
   },
 })
 

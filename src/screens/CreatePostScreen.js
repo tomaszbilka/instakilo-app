@@ -15,13 +15,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import * as ImagePicker from 'expo-image-picker'
 
-import theme from '../styles/theme'
 import { addPostValidation as validation } from '../utilities/validations'
-import MyTextInput from '../components/MyTextInput'
-import MyError from '../components/MyError'
-import MyButton from '../components/MyButton'
 import { createPost, uploadFile } from '../api/api'
+import { useAuth } from '../utilities/context'
 import Loader from '../components/Loader'
+import MyButton from '../components/MyButton'
+import MyError from '../components/MyError'
+import MyTextInput from '../components/MyTextInput'
+import theme from '../styles/theme'
 
 const imageUrl =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png'
@@ -30,6 +31,7 @@ const CreatePostScreen = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [image, setImage] = useState({ uri: imageUrl })
   const [error, setError] = useState(false)
+  const { userId } = useAuth()
 
   const { navigate } = useNavigation()
   const {
@@ -66,7 +68,7 @@ const CreatePostScreen = () => {
     try {
       const imagePath = await uploadFile({ imageName: values.title, imageFile: image })
 
-      const resposne = await createPost(values.description, imagePath)
+      const resposne = await createPost(values.description, imagePath, userId)
       if (resposne.error) {
         throw new Error('Sth went wrong...!!')
       }

@@ -8,6 +8,7 @@ import { getAllPosts } from '../api/api'
 import MyError from '../components/MyError'
 import Loader from '../components/Loader'
 import DashboardItem from '../components/DashboardItem'
+import UserList from '../components/UserList'
 
 const HomeScreen = () => {
   const { data, isLoading, isError, refetch } = useQuery({
@@ -40,6 +41,7 @@ const HomeScreen = () => {
       <View>
         {data?.data.length === 0 && <Text>No posts yet...</Text>}
         <FlatList
+          ListHeaderComponent={<UserList />}
           data={data.data}
           keyExtractor={item => item.id}
           renderItem={({ item }) => <DashboardItem item={item} />}

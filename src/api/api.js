@@ -43,12 +43,13 @@ export const getAllPosts = async () => {
   return response
 }
 
-export const createPost = async (description, imgName) => {
+export const createPost = async (description, imgName, id) => {
   const response = await client
     .from('posts')
     .insert({
       description: description,
       image_url: imgName,
+      creator_uuid: id,
     })
     .limit(1)
     .single()
@@ -58,7 +59,7 @@ export const createPost = async (description, imgName) => {
 export const getPost = async id => {
   const response = await client
     .from('posts')
-    .select('id, created_at, description, image_url, comments ( body, creator_uuid, id )')
+    .select('id, created_at, creator_uuid , description, image_url, comments ( body, creator_uuid, id )')
     .eq('id', id)
     .is('archived_at', null)
     .single()

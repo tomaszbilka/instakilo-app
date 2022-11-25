@@ -12,7 +12,7 @@ const DashboardItem = ({ item }) => {
   const { navigate } = useNavigation()
   const { id } = item
 
-  const { data, isLoading, isError, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: [`likes-${id}`],
     queryFn: () => getAllPostLikes(id),
   })
