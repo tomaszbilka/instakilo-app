@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, FlatList } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useFocusEffect } from '@react-navigation/native'
+import get from 'lodash/get'
 
 import { getAllPosts } from '../api/api'
 import MyError from '../components/MyError'
@@ -39,7 +40,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        {data?.data.length === 0 && <Text>No posts yet...</Text>}
+        {get(data, 'data', []).length === 0 && <Text>No posts yet...</Text>}
         <FlatList
           ListHeaderComponent={<UserList />}
           data={data.data}

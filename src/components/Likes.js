@@ -59,7 +59,7 @@ const Likes = ({ id }) => {
   })
 
   return (
-    <View>
+    <View style={{ zIndex: 100 }}>
       <TouchableOpacity onPress={likePostRequest}>
         <View style={styles.container}>
           <Text style={styles.text}>{get(data, 'count', '0')}</Text>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: 0,
+    right: 70,
     bottom: 0,
     backgroundColor: theme.colors.primary,
     padding: 5,
@@ -94,11 +94,11 @@ const styles = StyleSheet.create({
   },
   unlikeContainer: {
     position: 'absolute',
-    right: 0,
+    left: 70,
     bottom: 0,
     backgroundColor: theme.colors.primary,
     padding: 5,
-    paddingRight: 30,
+    paddingRight: 40,
     borderRadius: theme.radiuses.sm,
     zIndex: 100,
   },

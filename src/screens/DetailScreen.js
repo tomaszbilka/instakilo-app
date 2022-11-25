@@ -27,7 +27,7 @@ const DetailScreen = ({ route }) => {
     queryKey: ['post'],
     queryFn: () => getPost(id),
   })
-
+  console.log(data)
   const userId = get(data, 'data.creator_uuid')
 
   const {
@@ -91,16 +91,14 @@ const DetailScreen = ({ route }) => {
     <SafeAreaView style={styles.container}>
       <FlatList
         ListHeaderComponent={
-          <View>
-            <View style={styles.imgWrap}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: post.image_url,
-                }}
-              />
-              <Likes id={id} />
-            </View>
+          <View style={styles.header}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: post.image_url,
+              }}
+            />
+            <Likes id={id} />
             <View style={styles.authorWrap}>
               <View style={styles.author}>
                 <Text>Author: {get(userDetails, 'data.first_name', 'unknown')}</Text>
@@ -127,7 +125,7 @@ const DetailScreen = ({ route }) => {
         renderItem={({ item }) => <Comment item={item} refetch={refetch} />}
       />
       <TouchableOpacity style={styles.remove} onPress={deletePostHandler}>
-        <AntDesign name="delete" size={30} color="red" />
+        <AntDesign name="delete" size={25} color="red" />
       </TouchableOpacity>
     </SafeAreaView>
   )
@@ -138,32 +136,46 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  imgWrap: {
-    height: 300,
+  header: {
+    alignItems: 'center',
   },
   image: {
-    width: 300,
-    height: 300,
+    width: 250,
+    height: 250,
+    borderRadius: theme.spacings.base,
   },
   authorWrap: {
     flexDirection: 'row',
+    marginHorizontal: theme.spacings.lg,
+    marginTop: theme.spacings.sm,
   },
   author: {
+    borderColor: theme.colors.black,
+    borderRadius: theme.spacings.sm,
+    borderWidth: 1,
     flex: 1,
+    padding: theme.spacings.sm,
   },
   description: {
+    borderColor: theme.colors.black,
+    borderRadius: theme.spacings.sm,
+    borderWidth: 1,
     flex: 3,
+    marginLeft: theme.spacings.sm,
+    padding: theme.spacings.sm,
   },
   comment: {
     height: 100,
-    width: '100%',
     marginTop: theme.spacings.lg,
+    width: '100%',
   },
   actions: {
     flexDirection: 'row',
+    marginHorizontal: theme.spacings.lg,
   },
   list: {
     flex: 1,
+    width: '100%',
   },
   remove: {
     padding: theme.spacings.base,

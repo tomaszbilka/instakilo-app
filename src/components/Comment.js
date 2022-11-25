@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacings.sm,
     padding: theme.spacings.sm,
     borderRadius: theme.radiuses.base,
+    marginHorizontal: theme.spacings.lg,
   },
   layout: {
     flexDirection: 'row',
